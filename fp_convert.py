@@ -26,35 +26,35 @@ for m in models:
 for m in modelnames:
     if m != '/onnx_wgts/nvidia_ssd.onnx':
         # FP16 IR generation
-        !mo.py \
-        --input_model {m} \
+        subprocess.run(["/opt/intel/openvino/deployment_tools/model_optimizer/mo.py", 
+        "--input_model {m} \
         --input_shape=[1,3,224,224] \
         --mean_values=[0.485,0.456,0.406] \
         -o onnx_wgts/FP16/{m.split('/')[-1].split('.')[-2]} \
-        --data_type FP16
+        --data_type FP16"], shell=True)
         # FP32 IR generation
-        !mo.py \
-        --input_model {m} \
+        subprocess.run(["/opt/intel/openvino/deployment_tools/model_optimizer/mo.py", 
+        "--input_model {m} \
         --input_shape=[1,3,224,224] \
         --mean_values=[0.485,0.456,0.406] \
         -o onnx_wgts/FP32/{m.split('/')[-1].split('.')[-2]} \
-        --data_type FP32
+        --data_type FP32"], shell=True)
     else:
         # mean values for NVIDIA SSD unknown, will try finding them later.
         # FP16 IR generation
-        !mo.py \
-        --input_model {m} \
+        subprocess.run(["/opt/intel/openvino/deployment_tools/model_optimizer/mo.py", 
+        "--input_model {m} \
         --input_shape=[1,3,300,300] \
         --mean_values=[0.485,0.456,0.406] \
         -o onnx_wgts/FP16/{m.split('/')[-1].split('.')[-2]} \
-        --data_type FP16
+        --data_type FP16"], shell=True)
         # FP32 IR generation
-        !mo.py \
-        --input_model {m} \
+        subprocess.run(["/opt/intel/openvino/deployment_tools/model_optimizer/mo.py", 
+        "--input_model {m} \
         --input_shape=[1,3,300,300] \
         --mean_values=[0.485,0.456,0.406] \
         -o onnx_wgts/FP32/{m.split('/')[-1].split('.')[-2]} \
-        --data_type FP32
+        --data_type FP32"], shell=True)
 
 for md in models:
     print("{} benchmarking started.".format(md))
