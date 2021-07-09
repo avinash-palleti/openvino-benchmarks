@@ -1,10 +1,13 @@
 FROM openvino/ubuntu20_runtime
+FROM python:3.9.2
+USER root
 RUN pip install googledrivedownloader
 RUN pip install pandas
-RUN pip install progress
-RUN mkdir -p /job_files/outputs/
-RUN mkdir -p /onnx_wgts/FP32
-RUN mkdir -p /onnx_wgts/FP16
+RUN mkdir /job_files
+RUN mkdir /onnx_wgts
+RUN mkdir /job_files/outputs/
+RUN mkdir /onnx_wgts/FP32
+RUN mkdir /onnx_wgts/FP16
 ADD fp_convert.py /
 ADD benchmark_app_job.sh /
 CMD chmod +x benchmark_app_job.sh
