@@ -1,7 +1,7 @@
 FROM openvino/ubuntu20_runtime
 FROM python:3.9.2
 USER root
-RUN pip install googledrivedownloader
+RUN pip install googledrivedownloader ipython
 RUN pip install pandas
 RUN mkdir /job_files
 RUN mkdir /onnx_wgts
